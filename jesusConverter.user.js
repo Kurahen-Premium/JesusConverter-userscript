@@ -93,7 +93,7 @@ var JesusConverter = {
 					sub = ' ' + (anti_dupes[rName].push(posterID));
 				}
 			} 
-			idNodes[i].firstChild.nodeValue = '(' + this.convertToName(posterID) + sub + ')';
+			idNodes[i].firstChild.nodeValue = '(' + rName + sub + ')';
 		}
 	},
 	
