@@ -3,9 +3,9 @@
 // @namespace   mitsuba
 // @description Replaces poster's id with a human-readable real name
 // @version     1
-// @grant		none
+// @grant       none
 // @downloadURL https://github.com/Z09/JesusConverter-userscript/raw/master/jesusConverter.user.js
-// @run-at document-end
+// @run-at      document-end
 
 // @match       *://*.karachan.org/*
 // @exclude     http://www.karachan.org/*/src/*
