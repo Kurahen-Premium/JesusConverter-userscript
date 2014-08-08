@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name        JesusConverter
 // @namespace   mitsuba
-// @description Replaces poster's id with a human-readable real name
-// @version     2
+// @description Adds a human-readable real name in front of poster's id
+// @version     3
 // @grant       none
 // @downloadURL https://github.com/Z09/JesusConverter-userscript/raw/master/jesusConverter.user.js
 // @run-at document-end
@@ -76,15 +76,14 @@ var JesusConverter = {
 		//get the list of poster's id nodes within the thread node
 		var idNodes = threadNode.getElementsByClassName('posteruid');
 		for (var i = 0; i < idNodes.length; i++) {
-			var posterID, rName, displayParentheses;
+			var jesusNode;
+			var posterID, rName;
 			
 			if (idNodes[i].hasAttribute('title')) { //workaround for kurahen-premium
 				posterID = idNodes[i].getAttribute('title');
-				displayParentheses = false;
 			} 
 			else {
 				posterID = idNodes[i].firstChild.nodeValue.substring(5,13);
-				displayParentheses = true;
 			}
 			rName = this.convertToName(posterID);
 			
@@ -101,8 +100,14 @@ var JesusConverter = {
 				else if (index == -1) {
 					sub = ' ' + (anti_dupes[rName].push(posterID));
 				}
-			} 
-			idNodes[i].firstChild.nodeValue = (displayParentheses) ? '(' + rName + sub + ')' : rName + sub;
+			}
+			
+			//wrap it in a separate span tag
+			jesusNode = document.createElement('span');
+			jesusNode.setAttribute('class', 'jesusName postertrip');
+			jesusNode.appendChild((document.createTextNode(rName + sub)));
+			idNodes[i].parentNode.insertBefore(jesusNode, idNodes[i]);
+			idNodes[i].parentNode.insertBefore(document.createTextNode(' '), jesusNode.nextSibling); // add space between tags
 		}
 	},
 	
